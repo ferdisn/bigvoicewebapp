@@ -1,0 +1,11 @@
+<Context crossContext="true" reloadable="true">
+    <Resource name="jdbc/PostgresDS"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="training"
+              password="training"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost/training"
+              maxTotal="8"
+              maxIdle="4"/>
+</Context>

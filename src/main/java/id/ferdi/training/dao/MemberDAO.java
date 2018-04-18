@@ -3,6 +3,8 @@ package id.ferdi.training.dao;
 import id.ferdi.training.model.Member;
 import id.ferdi.training.util.DbUtil;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +20,26 @@ public class MemberDAO {
 
     public void create(Member member) {
         try {
-
             PreparedStatement preparedStatement;
-            preparedStatement = connection.prepareStatement("INSERT INTO members(name) values (?)");
 
-            preparedStatement.setString(1,member.getName());
+            if ( member.getFile().equals(null) ) {
+                preparedStatement = connection.prepareStatement("INSERT INTO members(name) values (?)");
 
-            preparedStatement.executeUpdate();
+                preparedStatement.setString(1,member.getName());
+
+                preparedStatement.executeUpdate();
+            }
+            else {
+
+                preparedStatement = connection.prepareStatement("INSERT INTO members(name,data,filename) values (?,?,?)");
+
+                preparedStatement.setString(1,member.getName());
+                preparedStatement.setBinaryStream(2,member.getFile());
+                preparedStatement.setString(3,member.getFilename());
+
+                preparedStatement.executeUpdate();
+            }
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,6 +81,8 @@ public class MemberDAO {
             if (resultSet.next()) {
                 aMember.setId(resultSet.getInt("id"));
                 aMember.setName(resultSet.getString("name"));
+                aMember.setFile(resultSet.getBinaryStream("data"));
+                aMember.setFilename(resultSet.getString("filename"));
             }
 
         } catch (SQLException e) {

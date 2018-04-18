@@ -1,5 +1,8 @@
 package id.ferdi.training.controller;
 
+import id.ferdi.training.dao.MemberDAO;
+import id.ferdi.training.model.Member;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,13 @@ public class FileController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Test Controller");
+        MemberDAO dao = new MemberDAO();
+
+        Member member;
+        member = dao.read(Integer.parseInt(request.getParameter("userId")));
+
+        response.setHeader("Content-disposition", "attachment; filename="+ member.getFilename());
+        response.setContentType("application/octet-stream");
+        response.getOutputStream().write(member.getFile().readAllBytes());
     }
 }

@@ -57,7 +57,7 @@
                                                 <td><c:out value="${member.name}" /></td>
                                                 <td>
                                                     <c:if test = "${not empty member.filename}">
-                                                        <a href="MemberController?action=download&userId=<c:out value="${member.id}" />">
+                                                        <a href="FileController?action=download&userId=<c:out value="${member.id}" />">
                                                             <button type="button" class="btn btn-default btn-circle">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>

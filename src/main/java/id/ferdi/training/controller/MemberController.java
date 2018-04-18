@@ -9,14 +9,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import id.ferdi.training.dao.MemberDAO;
 import id.ferdi.training.model.Member;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.List;
 
-@WebServlet(name = "MemberController", urlPatterns = {"MemberController"})
+@WebServlet(name = "MemberController", urlPatterns = {"/MemberController"})
 @MultipartConfig
 public class MemberController extends HttpServlet {
     private static String INSERT_OR_EDIT = "/member.jsp";
@@ -41,6 +44,29 @@ public class MemberController extends HttpServlet {
             Member member = new Member();
             member.setName(request.getParameter("name"));
             String userid = request.getParameter("userid");
+
+            //file store
+            Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+
+            if (filePart.getSize() != 0 && !filePart.getName().equals("")) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+                InputStream fileContent = filePart.getInputStream();
+
+                //this block saves to D:\data\ because %JBOSS_HOME%=D:\wildfly-12.0.0.Final
+                //File uploads = new File("data");
+                //File file = new File(uploads,fileName);
+                //Files.copy(fileContent, file.toPath());
+
+                //file saved to PostgreSQL
+                member.setFile(fileContent);
+                member.setFilename(fileName);
+            }
+            else {
+                member.setFile(null);
+                member.setFilename(null);
+            }
+
+
 
             if(userid == null || userid.isEmpty()) {
                 dao.create(member);
