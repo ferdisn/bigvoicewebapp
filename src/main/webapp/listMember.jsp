@@ -11,7 +11,7 @@
 
 <t:genericpage>
     <jsp:attribute name="title">
-        List Member 2
+        List Member
     </jsp:attribute>
     <jsp:body>
         <div class="row">

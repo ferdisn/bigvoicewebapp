@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "TestController", urlPatterns = {"TestController"})
-public class TestController extends HttpServlet {
+@WebServlet(name = "AnotherTestController",urlPatterns = "AnotherTestController")
+public class AnotherTestController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Test");
+        response.getWriter().println("Test urlPatterns with \"/\"");
     }
 }

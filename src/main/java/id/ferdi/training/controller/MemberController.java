@@ -16,7 +16,7 @@ import id.ferdi.training.model.Member;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "MemberController", urlPatterns = "MemberController")
+@WebServlet(name = "MemberController", urlPatterns = {"MemberController"})
 @MultipartConfig
 public class MemberController extends HttpServlet {
     private static String INSERT_OR_EDIT = "/member.jsp";
