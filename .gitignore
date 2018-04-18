@@ -1,0 +1,7 @@
+.settings
+.vscode
+target
+.classpath
+.project
+/src/main/webapp/dist/
+/src/main/webapp/vendor/
