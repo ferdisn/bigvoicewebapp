@@ -30,6 +30,12 @@
       <version>42.2.2</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>BigVoiceWebAppNoIDE</finalName>
