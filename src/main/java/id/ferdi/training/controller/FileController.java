@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @WebServlet(name = "FileController", urlPatterns = {"/FileController"})
@@ -24,6 +25,12 @@ public class FileController extends HttpServlet {
 
         response.setHeader("Content-disposition", "attachment; filename="+ member.getFilename());
         response.setContentType("application/octet-stream");
-        response.getOutputStream().write(member.getFile().readAllBytes());
+
+        //response.getOutputStream().write(member.getFile().readAllBytes()); //leave this as alternative
+
+        ByteArrayOutputStream byteArrayOutputStreamStream = new ByteArrayOutputStream();
+        member.getFile().transferTo(byteArrayOutputStreamStream);
+        response.getOutputStream().write(byteArrayOutputStreamStream.toByteArray());
+
     }
 }
