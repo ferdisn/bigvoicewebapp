@@ -22,7 +22,7 @@ public class MemberDAO {
         try {
             PreparedStatement preparedStatement;
 
-            if ( member.getFile().equals(null) ) {
+            if (null == member.getFile()) {
                 preparedStatement = connection.prepareStatement("INSERT INTO members(name) values (?)");
 
                 preparedStatement.setString(1,member.getName());
