@@ -4,6 +4,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DbUtil {
@@ -19,27 +20,25 @@ public class DbUtil {
              * Untuk koneksi dengan semua kontainer
              *
              */
-            /*
+
             try {
                 String url = "jdbc:postgresql://localhost/training";
-                String driver = "org.postgresql.Driver";
+                //String driver = "org.postgresql.Driver";
                 String user = "training";
                 String password = "training";
 
                 //Class.forName(driver);
                 connection = DriverManager.getConnection(url,user,password);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            */
+
 
             /*
              * Untuk koneksi dengan kontainer EE
              *
              */
-
+            /*
             try {
                 DataSource myDataSource;
                 //Class.forName("org.postgresql.Driver");
@@ -52,6 +51,7 @@ public class DbUtil {
             } catch (NamingException e) {
                 e.printStackTrace();
             }
+            */
 
             return connection;
         }
