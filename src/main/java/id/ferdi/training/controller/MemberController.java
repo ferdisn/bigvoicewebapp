@@ -13,6 +13,7 @@ import javax.servlet.http.Part;
 
 import id.ferdi.training.dao.MemberDAO;
 import id.ferdi.training.model.Member;
+import id.ferdi.training.util.FileUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,10 +53,7 @@ public class MemberController extends HttpServlet {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
                 InputStream fileContent = filePart.getInputStream();
 
-                //this block saves to D:\data\ because %JBOSS_HOME%=D:\wildfly-12.0.0.Final
-                //File uploads = new File("data");
-                //File file = new File(uploads,fileName);
-                //Files.copy(fileContent, file.toPath());
+                FileUtil.saveFile(fileName,fileContent);
 
                 //file saved to PostgreSQL
                 member.setFile(fileContent);
