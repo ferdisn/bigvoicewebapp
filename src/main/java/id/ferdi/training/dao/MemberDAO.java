@@ -58,11 +58,30 @@ public class MemberDAO {
 
     public void update(Member member) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE members set name = ? WHERE id = ?");
-            preparedStatement.setString(1,member.getName());
 
-            preparedStatement.setInt(2,member.getId());
-            preparedStatement.executeUpdate();
+
+            PreparedStatement preparedStatement;
+
+            if ( member.getFile().equals(null) ) {
+                preparedStatement = connection.prepareStatement("UPDATE members set name = ? WHERE id = ?");
+
+                preparedStatement.setString(1,member.getName());
+
+                preparedStatement.setInt(2,member.getId());
+
+                preparedStatement.executeUpdate();
+            }
+            else {
+
+                preparedStatement = connection.prepareStatement("UPDATE members set name = ?,data = ?,filename = ? WHERE id = ?");
+
+                preparedStatement.setString(1,member.getName());
+                preparedStatement.setBinaryStream(2,member.getFile());
+                preparedStatement.setString(3,member.getFilename());
+                preparedStatement.setInt(4,member.getId());
+
+                preparedStatement.executeUpdate();
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
