@@ -23,13 +23,15 @@ public class DbUtil {
 
             try {
                 String url = "jdbc:postgresql://localhost/training";
-                //String driver = "org.postgresql.Driver";
+                String driver = "org.postgresql.Driver";
                 String user = "training";
                 String password = "training";
 
-                //Class.forName(driver);
+                Class.forName(driver);
                 connection = DriverManager.getConnection(url,user,password);
             } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 
